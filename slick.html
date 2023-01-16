@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .slider {
+        max-width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .slider-controls {
+        position: absolute;
+        z-index: 111;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+      }
+
+      .slider-controls a {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin: 10px;
+        cursor: pointer;
+        opacity: 0.3;
+      }
+      .slider-controls a:hover {
+        opacity: 0.8;
+      }
+      .inner-slider {
+        display: flex;
+      }
+
+      .slide {
+        /* flex: 1; */
+        flex-basis: 25%;
+        /* width: 24%; */
+        overflow: hidden;
+        padding: 10px;
+      }
+
+      .slide img {
+        max-width: 100%;
+      }
+
+      .slider-controls a {
+        text-decoration: none;
+      }
+
+      .container {
+        width: 992px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      a.prev {
+    translate: -65px 0px;
+}
+a.next {
+    translate: 65px 0px;
+}
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="slider">
+        <div class="inner-slider">
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/ed/f19cfd59b445afaf9f3a270709b5d9/Bild6_2401x3000px.jpg"
+            />
+          </div>
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/1f/8ea9d3884b4e669cc1065d215bf0f7/IMG_9677-2-1-.jpg"
+            />
+          </div>
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/90/6bbbc757544147bc6300bae50316e3/IMG_9685-2-1-.jpg"
+            />
+          </div>
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/d6/11023787034265865e3465dca601b7/Bild_5_2401x3000px.jpg"
+            />
+          </div>
+  
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/6c/f10c0fe60b4823b94138999753c5be/Bild5_2401x3000px-1-.jpg"
+            />
+          </div>
+  
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/dd/ae3e6625b94e71a8fd74a460c6c8c4/Bild6_2401x3000px.jpg"
+            />
+          </div>
+  
+          <div class="slide">
+            <img
+              src="https://images.clickfunnels.com/ab/523d434193422d8497b4d33c5fb454/Bild2_2401x3000px-4-.jpg"
+            />
+          </div>
+  
+          <!--
+   *** to add more photos, upload photo to clickfunnel duplicate the following line of code, and replace the URL
+   <div class="slide"><img src="https://picsum.photos/600/300?ff"></div>
+   -->
+        </div>
+  
+        
+      </div>
+
+      <div class="slider-controls">
+        <a class="prev">&#10094;</a>
+        <a class="next">&#10095;</a>
+      </div>
+  
+    </div>
+    <script>
+      function slider({ imagesPerSlide }) {
+        $(document).ready(function () {
+          let currentSlide = 0;
+          const slidesOnScreen = imagesPerSlide;
+          const sliderContainerWidth = $(".slider").parent().width();
+          const sizeOfSlide =
+            sliderContainerWidth <= 320
+              ? sliderContainerWidth
+              : sliderContainerWidth <= 522
+              ? sliderContainerWidth / 2
+              : sliderContainerWidth / slidesOnScreen;
+          const slide = $(".slide");
+          const slidesLength = slide.length;
+          const sliderSize = sizeOfSlide * slidesLength;
+
+          $(".inner-slider").css({ width: sliderSize + "px" });
+
+          $(".prev").click(function () {
+            if (currentSlide > 0) {
+              currentSlide--;
+              $(".inner-slider").animate({
+                "margin-left": "+=" + sizeOfSlide + "px",
+              });
+            }
+          });
+
+          $(".next").click(function () {
+            if (currentSlide < slidesLength - slidesOnScreen) {
+              currentSlide++;
+              $(".inner-slider").animate({
+                "margin-left": "-=" + sizeOfSlide + "px",
+              });
+            }
+          });
+        });
+      }
+
+      const imagesPerSlide = 4;
+
+      slider({ imagesPerSlide });
+
+      window.addEventListener("resize", function () {
+        slider({ imagesPerSlide });
+      });
+    </script>
+  </body>
+</html>
